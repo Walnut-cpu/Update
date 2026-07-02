@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "generated_on": "2026-07-02",
+  "review_items": [
+    {
+      "disease_name": "Stargardt Disease",
+      "canonical_key": "stargardt_disease",
+      "status": "approved",
+      "generated_on": "2026-07-02",
+      "notes": [
+        "Only disease-name-centered terms are allowed.",
+        "Do not expand to examination, imaging, biomarker, or treatment technique terms.",
+        "Subtypes are allowed only when the subtype name still explicitly contains the disease identity."
+      ],
+      "queries": {
+        "openalex_terms": [
+          "Stargardt Disease"
+        ],
+        "europe_pmc_query": "(\"Stargardt Disease\") AND OPEN_ACCESS:y AND HAS_ABSTRACT:y"
+      },
+      "review_comment": "approved",
+      "approved_on": "2026-07-02"
+    }
+  ],
+  "instructions": [
+    "Review each pending disease strategy.",
+    "Change status from pending to approved or rejected.",
+    "You may edit the query terms before approval.",
+    "After approval, rerun the retrieval workflow and the approved strategy will move into the local store automatically."
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "status": "local_fallback",
+  "reason": "Gemini request failed; switched to local fallback. Original error: <urlopen error [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。>",
+  "model": "gemini-3.1-flash-lite",
+  "summary": {
+    "correct_count": 0,
+    "error_count": 1
+  },
+  "items": [
+    {
+      "id": 1,
+      "verdict": "error",
+      "reason": "Fallback heuristic: lower-confidence extraction without strong workbook overlap."
+    }
+  ]
+}

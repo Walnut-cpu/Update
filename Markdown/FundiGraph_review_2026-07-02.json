@@ -1,0 +1,23 @@
+{
+  "generated_on": "2026-07-02",
+  "markdown_files": [
+    "FundiGraph_gemini_precheck_2026-07-02.md",
+    "FundiGraph_review_2026-07-02.md"
+  ],
+  "extracted_candidate_count": 0,
+  "overlap_dropped_count": 0,
+  "review_candidate_count": 0,
+  "gemini_precheck": {
+    "status": "skipped",
+    "model": "gemini-3.1-flash-lite",
+    "summary": {
+      "correct_count": 0,
+      "error_count": 0
+    },
+    "reason": "no candidate items",
+    "json_path": "FundiGraph_gemini_precheck_2026-07-02.json",
+    "markdown_path": "FundiGraph_gemini_precheck_2026-07-02.md"
+  },
+  "items": [],
+  "dropped_overlap_items": []
+}

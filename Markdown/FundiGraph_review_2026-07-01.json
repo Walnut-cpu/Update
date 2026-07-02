@@ -1,0 +1,156 @@
+{
+  "generated_on": "2026-07-01",
+  "markdown_files": [
+    "001_Age-related_Macular_Degeneration_2026-06-20_OphthaDT.md",
+    "FundiGraph_gemini_precheck_2026-07-01.md",
+    "FundiGraph_review_2026-06-30.md",
+    "FundiGraph_review_2026-07-01.md"
+  ],
+  "extracted_candidate_count": 3,
+  "overlap_dropped_count": 2,
+  "review_candidate_count": 1,
+  "gemini_precheck": {
+    "status": "local_fallback",
+    "model": "gemini-3.1-flash-lite",
+    "summary": {
+      "correct_count": 0,
+      "error_count": 1
+    },
+    "reason": "Gemini request failed; switched to local fallback. Original error: <urlopen error [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。>",
+    "json_path": "FundiGraph_gemini_precheck_2026-07-01.json",
+    "markdown_path": "FundiGraph_gemini_precheck_2026-07-01.md"
+  },
+  "items": [
+    {
+      "id": 1,
+      "source_candidate_id": 3,
+      "disease": "Age-related Macular Degeneration",
+      "disease_label": "Disease",
+      "relation": "Requires examination",
+      "target": "Best Corrected Visual Acuity (BCVA)",
+      "target_label": "Examination",
+      "source_file": "001_Age-related_Macular_Degeneration_2026-06-20_OphthaDT.md",
+      "source_excerpt": "The study serializes longitudinal histories to forecast best corrected visual acuity (BCVA).",
+      "confidence": 0.72,
+      "triple": "(: Disease {name: Age-related Macular Degeneration})-[: Requires examination]->(: Examination {name: Best Corrected Visual Acuity (BCVA)})",
+      "overlap": {
+        "matched": false,
+        "score": 0.317,
+        "value": "Optical coherence tomography",
+        "row": 5510,
+        "column": 13,
+        "disease_rows": [
+          5490,
+          5491,
+          5492,
+          5493,
+          5494,
+          5495,
+          5496,
+          5497,
+          5498,
+          5499,
+          5500,
+          5501,
+          5502,
+          5503,
+          5504,
+          5505,
+          5506,
+          5507,
+          5508,
+          5509,
+          5510,
+          5511,
+          5512
+        ]
+      },
+      "planned_action": "needs_review_for_insert",
+      "gemini_precheck": {
+        "id": 1,
+        "verdict": "error",
+        "reason": "Fallback heuristic: lower-confidence extraction without strong workbook overlap."
+      }
+    }
+  ],
+  "dropped_overlap_items": [
+    {
+      "id": 1,
+      "source_candidate_id": 1,
+      "disease": "Age-related Macular Degeneration",
+      "disease_label": "Disease",
+      "relation": "Classified as",
+      "target": "Neovascular Age-related Macular Degeneration",
+      "target_label": "Staging and typing",
+      "source_file": "001_Age-related_Macular_Degeneration_2026-06-20_OphthaDT.md",
+      "source_excerpt": "OphthaDT demonstrated the lowest prediction error in neovascular age-related macular degeneration (nAMD).",
+      "confidence": 0.98,
+      "triple": "(: Disease {name: Age-related Macular Degeneration})-[: Classified as]->(: Staging and typing {name: Neovascular Age-related Macular Degeneration})",
+      "overlap": {
+        "matched": true,
+        "score": 0.85,
+        "value": "Dry age-related macular degeneration",
+        "row": 5491,
+        "column": 10,
+        "disease_rows": [
+          5490,
+          5491,
+          5492,
+          5493,
+          5494,
+          5495,
+          5496,
+          5497,
+          5498,
+          5499,
+          5500,
+          5501,
+          5502,
+          5503,
+          5504,
+          5505,
+          5506,
+          5507,
+          5508,
+          5509,
+          5510,
+          5511,
+          5512
+        ]
+      },
+      "planned_action": "dropped_overlap_ge_0.8"
+    },
+    {
+      "id": 1,
+      "source_candidate_id": 2,
+      "disease": "Neovascular Age-related Macular Degeneration",
+      "disease_label": "Disease",
+      "relation": "Same as",
+      "target": "nAMD",
+      "target_label": "Synonym",
+      "source_file": "001_Age-related_Macular_Degeneration_2026-06-20_OphthaDT.md",
+      "source_excerpt": "OphthaDT demonstrated the lowest prediction error in neovascular age-related macular degeneration (nAMD).",
+      "confidence": 0.99,
+      "triple": "(: Disease {name: Neovascular Age-related Macular Degeneration})-[: Same as]->(: Synonym {name: nAMD})",
+      "overlap": {
+        "matched": true,
+        "score": 0.889,
+        "value": "NVAMD",
+        "row": 5515,
+        "column": 10,
+        "disease_rows": [
+          5490,
+          5513,
+          5514,
+          5515,
+          5516,
+          5517,
+          5518,
+          5519,
+          5520
+        ]
+      },
+      "planned_action": "dropped_overlap_ge_0.8"
+    }
+  ]
+}

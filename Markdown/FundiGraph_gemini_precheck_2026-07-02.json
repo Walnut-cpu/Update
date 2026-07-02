@@ -1,0 +1,10 @@
+{
+  "status": "skipped",
+  "reason": "no candidate items",
+  "model": "gemini-3.1-flash-lite",
+  "summary": {
+    "correct_count": 0,
+    "error_count": 0
+  },
+  "items": []
+}

@@ -1,0 +1,30 @@
+{
+  "generated_on": "2026-06-30",
+  "source_review_json": "FundiGraph_review_2026-06-30.html",
+  "items": [
+    {
+      "id": 1,
+      "decision": "error",
+      "corrected_triple": "(: Disease {name: Age-related Macular Degeneration})-[: Classified as]->(: Staging and typing {name: test cure})",
+      "source_file": "001_Age-related_Macular_Degeneration_2026-06-20_OphthaDT.md",
+      "source_excerpt": "OphthaDT demonstrated the lowest prediction error in neovascular age-related macular degeneration (nAMD).",
+      "confidence": 0.98
+    },
+    {
+      "id": 2,
+      "decision": "confirm",
+      "corrected_triple": "(: Disease {name: Neovascular Age-related Macular Degeneration})-[: Same as]->(: Synonym {name: nAMD})",
+      "source_file": "001_Age-related_Macular_Degeneration_2026-06-20_OphthaDT.md",
+      "source_excerpt": "OphthaDT demonstrated the lowest prediction error in neovascular age-related macular degeneration (nAMD).",
+      "confidence": 0.99
+    },
+    {
+      "id": 3,
+      "decision": "confirm",
+      "corrected_triple": "(: Disease {name: Age-related Macular Degeneration})-[: Requires examination]->(: Examination {name: Best Corrected Visual Acuity (BCVA)})",
+      "source_file": "001_Age-related_Macular_Degeneration_2026-06-20_OphthaDT.md",
+      "source_excerpt": "The study serializes longitudinal histories to forecast best corrected visual acuity (BCVA).",
+      "confidence": 0.72
+    }
+  ]
+}

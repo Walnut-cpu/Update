@@ -1,0 +1,13 @@
+{
+  "applied_on": "2026-07-02",
+  "workbook": "D:\\Data\\Graduate_Content\\AI_Agent\\Codex\\FundiGraph.xlsx",
+  "reviewed_candidate_count": 0,
+  "inserted_row_count": 0,
+  "row_results": [],
+  "neo4j_sync": {
+    "status": "skipped",
+    "reason": "no inserted workbook rows to sync",
+    "requested_rows": [],
+    "row_count": 0
+  }
+}

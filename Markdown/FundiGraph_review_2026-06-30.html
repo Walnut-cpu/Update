@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FundiGraph Review</title>
+  <style>
+    :root {
+      --bg: #f5f1e8;
+      --card: #fffdf8;
+      --ink: #1f2937;
+      --muted: #6b7280;
+      --line: #d6cfc2;
+      --ok: #1d7a46;
+      --bad: #b42318;
+      --idle: #8b6f47;
+      --accent: #a35c2c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, #f9e9d4 0, transparent 25%),
+        linear-gradient(180deg, #f8f5ef 0%, #efe6d8 100%);
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; }
+    .hero {
+      background: linear-gradient(135deg, #fffaf2 0%, #f6ead8 100%);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(125, 92, 52, 0.08);
+    }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    .muted { color: var(--muted); }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 16px;
+    }
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-export { background: var(--accent); color: white; }
+    .btn-copy { background: #e5d2b8; color: #4b3a28; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .item {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 8px 20px rgba(125, 92, 52, 0.05);
+    }
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .pill {
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: #f2eadc;
+      color: #614b30;
+    }
+    .status-idle { background: #efe4d1; color: var(--idle); }
+    .status-confirm { background: #d9f2e3; color: var(--ok); }
+    .status-error { background: #fde7e5; color: var(--bad); }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0;
+    }
+    .confirm { background: #d9f2e3; color: var(--ok); }
+    .error { background: #fde7e5; color: var(--bad); }
+    .reset { background: #efe4d1; color: #6a573c; }
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 8px 16px;
+      margin: 10px 0 14px;
+      font-size: 14px;
+    }
+    code, textarea {
+      font-family: Consolas, "SFMono-Regular", monospace;
+    }
+    .triple {
+      background: #f8f3ea;
+      border: 1px solid #eadfcf;
+      border-radius: 10px;
+      padding: 12px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    textarea {
+      width: 100%;
+      min-height: 92px;
+      resize: vertical;
+      border: 1px solid #d9ccb9;
+      border-radius: 10px;
+      padding: 12px;
+      margin-top: 10px;
+      background: #fffdfa;
+      color: var(--ink);
+    }
+    .footer {
+      margin-top: 18px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>FundiGraph Review Panel</h1>
+      <div class="muted">更方便的人工审核面板。逐条点击 Confirm / Error，必要时修改 corrected triple，然后导出审核结果。</div>
+      <div class="toolbar">
+        <button class="btn-export" onclick="downloadReviewedJson()">导出 reviewed.json</button>
+        <button class="btn-copy" onclick="copyApplyCommand()">复制 apply 命令</button>
+        <span id="summary" class="muted"></span>
+      </div>
+    </section>
+    <section id="items" class="grid"></section>
+    <div class="footer">导出文件建议保存到 Markdown 目录下，文件名保持为 <code>FundiGraph_review_2026-06-30.reviewed.json</code>。</div>
+  </div>
+  <script>
+    const payload = {"generated_on": "2026-06-30", "markdown_files": [], "items": []};
+    const itemsEl = document.getElementById("items");
+    const state = payload.items.map(item => ({
+      id: item.id,
+      decision: "pending",
+      correctedTriple: item.triple,
+      original: item,
+    }));
+
+    function statusClass(decision) {
+      if (decision === "confirm") return "status-confirm";
+      if (decision === "error") return "status-error";
+      return "status-idle";
+    }
+
+    function statusText(decision) {
+      if (decision === "confirm") return "CONFIRMED";
+      if (decision === "error") return "NEEDS FIX";
+      return "PENDING";
+    }
+
+    function render() {
+      itemsEl.innerHTML = "";
+      for (const row of state) {
+        const item = row.original;
+        const card = document.createElement("article");
+        card.className = "item";
+        card.innerHTML = `
+          <div class="item-header">
+            <strong>Item ${item.id}</strong>
+            <span class="pill ${statusClass(row.decision)}">${statusText(row.decision)}</span>
+          </div>
+          <div class="meta">
+            <div><strong>Source:</strong> ${escapeHtml(item.source_file)}</div>
+            <div><strong>Confidence:</strong> ${Number(item.confidence).toFixed(2)}</div>
+            <div><strong>Overlap:</strong> ${item.overlap.matched}</div>
+            <div><strong>Action:</strong> ${escapeHtml(item.planned_action)}</div>
+          </div>
+          <div class="muted">Evidence</div>
+          <div class="triple">${escapeHtml(item.source_excerpt)}</div>
+          <div class="muted" style="margin-top:10px;">Triple</div>
+          <div class="triple">${escapeHtml(item.triple)}</div>
+          <div class="actions">
+            <button class="confirm" data-action="confirm" data-id="${item.id}">Confirm</button>
+            <button class="error" data-action="error" data-id="${item.id}">Error</button>
+            <button class="reset" data-action="reset" data-id="${item.id}">Reset</button>
+          </div>
+          <div class="muted">Corrected triple</div>
+          <textarea data-id="${item.id}">${escapeHtml(row.correctedTriple)}</textarea>
+        `;
+        itemsEl.appendChild(card);
+      }
+      bindEvents();
+      updateSummary();
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    function bindEvents() {
+      document.querySelectorAll("button[data-action]").forEach(btn => {
+        btn.onclick = () => {
+          const id = Number(btn.dataset.id);
+          const row = state.find(x => x.id === id);
+          if (!row) return;
+          row.decision = btn.dataset.action === "reset" ? "pending" : btn.dataset.action;
+          render();
+        };
+      });
+      document.querySelectorAll("textarea[data-id]").forEach(area => {
+        area.oninput = () => {
+          const id = Number(area.dataset.id);
+          const row = state.find(x => x.id === id);
+          if (!row) return;
+          row.correctedTriple = area.value;
+        };
+      });
+    }
+
+    function updateSummary() {
+      const confirm = state.filter(x => x.decision === "confirm").length;
+      const error = state.filter(x => x.decision === "error").length;
+      const pending = state.filter(x => x.decision === "pending").length;
+      document.getElementById("summary").textContent = `Confirmed: ${confirm} | Error: ${error} | Pending: ${pending}`;
+    }
+
+    function reviewedPayload() {
+      return {
+        generated_on: payload.generated_on,
+        source_review_json: "FundiGraph_review_2026-06-30.json",
+        items: state.map(row => ({
+          id: row.id,
+          decision: row.decision,
+          corrected_triple: row.correctedTriple,
+          source_file: row.original.source_file,
+          source_excerpt: row.original.source_excerpt,
+          confidence: row.original.confidence,
+        })),
+      };
+    }
+
+    function downloadReviewedJson() {
+      const blob = new Blob([JSON.stringify(reviewedPayload(), null, 2)], { type: "application/json;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "FundiGraph_review_2026-06-30.reviewed.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    async function copyApplyCommand() {
+      const text = "python fundigraph_review_workflow.py apply";
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    render();
+  </script>
+</body>
+</html>

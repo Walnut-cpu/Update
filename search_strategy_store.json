@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "generated_on": "2026-07-02",
+  "strategies": {
+    "age_related_macular_degeneration": {
+      "disease_name": "Age-related Macular Degeneration",
+      "canonical_key": "age_related_macular_degeneration",
+      "status": "approved",
+      "generated_on": "2026-07-01",
+      "notes": [
+        "Only disease-name-centered terms are allowed.",
+        "Do not expand to examination, imaging, biomarker, or treatment technique terms.",
+        "Subtypes are allowed only when the subtype name still explicitly contains the disease identity.",
+        "Geographic atrophy is not included unless explicitly labeled as AMD-related in a later manual edit."
+      ],
+      "queries": {
+        "openalex_terms": [
+          "Age-related Macular Degeneration",
+          "Age related Macular Degeneration",
+          "AMD",
+          "neovascular age-related macular degeneration",
+          "nAMD",
+          "dry AMD",
+          "wet AMD",
+          "non-neovascular age-related macular degeneration"
+        ],
+        "europe_pmc_query": "(\"Age-related Macular Degeneration\" OR \"Age related Macular Degeneration\" OR AMD OR \"neovascular age-related macular degeneration\" OR nAMD OR \"dry AMD\" OR \"wet AMD\" OR \"non-neovascular age-related macular degeneration\") AND OPEN_ACCESS:y AND HAS_ABSTRACT:y"
+      },
+      "review_comment": "approved",
+      "approved_on": "2026-07-01",
+      "time_window_mode": "last_successful_run_to_today"
+    },
+    "bergmeister_papilla": {
+      "disease_name": "Bergmeister Papilla",
+      "canonical_key": "bergmeister_papilla",
+      "status": "approved",
+      "generated_on": "2026-07-01",
+      "notes": [
+        "Only disease-name-centered terms are allowed.",
+        "Do not expand to examination, imaging, biomarker, or treatment technique terms.",
+        "Subtypes are allowed only when the subtype name still explicitly contains the disease identity.",
+        "No broader ophthalmology expansions were added automatically."
+      ],
+      "queries": {
+        "openalex_terms": [
+          "Bergmeister Papilla"
+        ],
+        "europe_pmc_query": "(\"Bergmeister Papilla\") AND OPEN_ACCESS:y AND HAS_ABSTRACT:y"
+      },
+      "review_comment": "approved",
+      "approved_on": "2026-07-01",
+      "time_window_mode": "last_successful_run_to_today"
+    },
+    "pathological_myopia": {
+      "disease_name": "Pathological Myopia",
+      "canonical_key": "pathological_myopia",
+      "status": "approved",
+      "generated_on": "2026-07-01",
+      "notes": [
+        "Only disease-name-centered terms are allowed.",
+        "Do not expand to examination, imaging, biomarker, or treatment technique terms.",
+        "Subtypes are allowed only when the subtype name still explicitly contains the disease identity."
+      ],
+      "queries": {
+        "openalex_terms": [
+          "Pathological Myopia",
+          "pathologic myopia",
+          "PM",
+          "myopic maculopathy",
+          "degenerative myopia"
+        ],
+        "europe_pmc_query": "(\"Pathological Myopia\" OR \"pathologic myopia\" OR PM OR \"myopic maculopathy\" OR \"degenerative myopia\") AND OPEN_ACCESS:y AND HAS_ABSTRACT:y"
+      },
+      "review_comment": "approved",
+      "approved_on": "2026-07-01",
+      "time_window_mode": "last_successful_run_to_today"
+    },
+    "stargardt_disease": {
+      "disease_name": "Stargardt Disease",
+      "canonical_key": "stargardt_disease",
+      "status": "approved",
+      "generated_on": "2026-07-02",
+      "notes": [
+        "Only disease-name-centered terms are allowed.",
+        "Do not expand to examination, imaging, biomarker, or treatment technique terms.",
+        "Subtypes are allowed only when the subtype name still explicitly contains the disease identity."
+      ],
+      "queries": {
+        "openalex_terms": [
+          "Stargardt Disease"
+        ],
+        "europe_pmc_query": "(\"Stargardt Disease\") AND OPEN_ACCESS:y AND HAS_ABSTRACT:y"
+      },
+      "review_comment": "approved",
+      "approved_on": "2026-07-02"
+    }
+  }
+}
